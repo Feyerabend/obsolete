@@ -5,4 +5,4 @@ that never was. But today it is more of samples for instructional use and illust
 how one could look at data structures. It was also before generics were implemented and standardized in Java,
 when experimental compilers were out.
 
-There are also some files from around 2004, published in DMZ (Datormagazin).
+There are also some files from around 2001, published in DMZ (Datormagazin).
