@@ -298,117 +298,88 @@ class AnotherNewMemory {
 
 To initialize this variant of class to new objects, write:
 
+```java
 class TestAnotherNewMemory {
-
-...
-
-AnotherNewMemory test = new AnotherNewMemory(34, 56);
-
-...
-
+    ...
+    AnotherNewMemory test = new AnotherNewMemory(34, 56);
+    ...
 }
+```
 
 There are in AnotherNewMemory two constructors which_overlays_ each other. They are both part of the same class, have the same name but different number of parameters. (In general, they can also have different types of parameters even if the number is the same),
 
 Since the constructor can be considered to some extent as the initializing method, the method override works like the constructor override for methods. An example where both types exist, where equals() uses the java.lang.String package where the method equalsIgnoreCase() delivers a comparison between strings regardless of whether they have lowercase or uppercase in them:
 
+```java
 class Name {
+    String v;
 
-String v;
+    Name() { }
 
-Name() {
+    Name(String \_v) {
+        v = \_v;
+    }
 
+    boolean equals(String s) {
+        return v.equalsIgnoreCase(s);
+    }
+
+    boolean equals(Name n) {
+        return v.equalsIgnoreCase(n.getName());
+    }
 }
-
-Name(String \_v) {
-
-v = \_v;
-
-}
-
-boolean equals(String s) {
-
-return v.equalsIgnoreCase(s);
-
-}
-
-boolean equals(Name n) {
-
-return v.equalsIgnoreCase(n.getName());
-
-}
-
-}
+```
 
 The reference "this" and "super"
 
 A common convention used when initializing via constructor is that the same name of instance variables and parameters can be used. To distinguish them, the instance variables are referenced to it_the current object_with this. However, the parameters act within the constructor block as readable local variables. If some components in the above class are changed, we get:
 
+```java
 class AThirdNewMemory {
-
-int x, y;
-
-...
-
-AThirdNewMemory(int x, int y) {
-
-this.x = x;
-
-this.y = y;
-
+    int x, y;
+    ...
+    AThirdNewMemory(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 }
-
-}
+```
 
 A variant of class that accepts three arguments (parameters) to the constructor:
 
+```java
 class ADifferentNewMemory {
+    int x, y;
+    ...
 
-int x, y;
+    ADifferentNewMemory(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
-...
-
-ADifferentNewMemory(int x, int y) {
-
-this.x = x;
-
-this.y = y;
-
+    ADifferentNewMemory(int x, int y, boolean a) {
+        this(x, y);
+        if (a) {
+            this.x = x + y;
+        } else {
+            this.x = x - y;
+        }
+    }
 }
-
-ADifferentNewMemory(int x, int y, boolean a) {
-
-this(x, y);
-
-if (a) {
-
-this.x = x + y;
-
-} else {
-
-this.x = x - y;
-
-}
-
-}
-
-}
+```
 
 The statement with this(x, y) refers to and matches the two-digit constructor immediately above, and executes the instructions in it before it executes the instructions in the constructor it is inside. The variables x and y have thus already been given values ​​before they are manipulated with addition or subtraction in the rest of the constructor.
 
 If no default constructor (constructor with no arguments) exists, Java will execute the program as if there were a default constructor. The assumed constructor calls the superclass's default constructor. This is effectively the same as if there had been a default constructor:
 
+```java
 class YetAMemory {
-
-...
-
-YetAMemory() {
-
-super();
-
+    ...
+    YetAMemory() {
+        super();
+    }
 }
-
-}
+```
 
 _**of the subclass**_
 
@@ -416,119 +387,88 @@ One of the most useful phenomena in object orientation is inheritance. Inheritan
 
 **List 2.4**
 
+```java
 class Name {
+    String v;
 
-String v;
+    Name() { }
 
-Name() {
+    Name(String \_v) {
+        v = \_v;
+    }
 
-}
+    String getName() {
+        return v;
+    }
 
-Name(String \_v) {
+    boolean equals(String s) {
+        return v.equalsIgnoreCase(s);
+    }
 
-v = \_v;
+    boolean equals(Name n) {
+        return v.equalsIgnoreCase(n.getName());
+    }
 
-}
-
-String getName() {
-
-return v;
-
-}
-
-boolean equals(String s) {
-
-return v.equalsIgnoreCase(s);
-
-}
-
-boolean equals(Name n) {
-
-return v.equalsIgnoreCase(n.getName());
-
-}
-
-void print() {
-
-System.out.print(v);
-
-}
-
+    void print() {
+        System.out.print(v);
+    }
 }
 
 class ExtendedName extends Name {
+    String pr, po;
 
-String pr, po;
+    ExtendedName(String \_pr, String \_v, String \_po) {
+        super(\_v);
+        pr = \_pr;
+        po = \_po;
+    }
 
-ExtendedName(String \_pr, String \_v, String \_po) {
+    String getPre() {
+        return pr;
+    }
 
-super(\_v);
+    String getPost() {
+        return po;
+    }
 
-pr = \_pr;
+    String extendName() {
+        return concat();
+    }
 
-po = \_po;
+    String extendValue() {
+        return super.value = concat();
+    }
 
+    String concat() {
+        return pr + super.value + po;
+    }
 }
-
-String getPre() {
-
-return pr;
-
-}
-
-String getPost() {
-
-return po;
-
-}
-
-String extendName() {
-
-return concat();
-
-}
-
-String extendValue() {
-
-return super.value = concat();
-
-}
-
-String concat() {
-
-return pr + super.value + po;
-
-}
-
-}
+```
 
 In the Name class, there are constructors that are overridden, but also methods that are overridden and not overridden, and an instance variable.
 
-A print() method is inherited:
+A `print()` method is inherited:
 
+```java
 class Name {
+    ...
 
-...
-
-void print() {
-
-System.out.print(v);
-
-}
-
+    void print() {
+        System.out.print(v);
+    }
 }
 
 class ExtendedName {
-
-...
-
+    ...
 }
+```
 
 When instantiating ExtendedName and calling print(), the inherited method will be called:
 
-ExtendedName en = new ExtendedName(pre, middle, post);
-
-en.print();
+```java
+    ExtendedName en = new ExtendedName(pre, middle, post);
+    en.print();
+```
 
 _Super constructors and super variables_
 
