@@ -482,66 +482,47 @@ Methods not only need to be inherited, they can_be replaced_ of other methods wi
 
 The Name and ExtendedName classes can be supplemented with the toString() methods:
 
+```java
 class Name {
-
-...
-
-String toString() {
-
-return "Value: \[" + v + "\]";
-
-}
-
+    ...
+    String toString() {
+        return "Value: \[" + v + "\]";
+    }
 }
 
 class ExtendedName extends Name {
-
-...
-
-String toString() {
-
-return "Pre: \[" + pr + "\]\\n"
-
-\+ "Post: \[" + po + "\]";
-
+    ...
+    String toString() {
+        return "Pre: \[" + pr + "\]\\n"
+            \+ "Post: \[" + po + "\]";
+    }
 }
-
-}
+```
 
 _Super methods and scope_
 
 If the previous method toString() in ExtendedName rather for replacement method, a refinement is written:
 
+```java
 class ExtendedName extends Name {
-
-...
-
-String toString() {
-
-return "Pre: \[" + pr + "\]\\n"
-
-\+ super.toString()
-
-\+ "Post: \[" + po + "\]";
-
+    ...
+    String toString() {
+        return "Pre: \[" + pr + "\]\\n"
+            \+ super.toString()
+            \+ "Post: \[" + po + "\]";
+    }
 }
-
-}
+```
 
 so the overriding method uses the overridden method. It calls the toString() method of Name via super.toString(). There is some symmetry between methods, variables and constructors when it comes to this and super. In both cases only when there is doubt about what is meant do these markers need to be used explicitly and not otherwise. To distinguish local variables from instance variables, this was previously inserted. The range for Java will be the first to search for e.g. a variable's declaration within the method's braces, then within the class, and later up through the hierarchy of extended classes towards Object.
 
 Some concepts related to calls and references
 
-*   this, this object
-    
+*   this, this object    
 *   super, super classes
-    
-*   super._method name_(), calls the super class's method
-    
+*   super._method name_(), calls the super class's method    
 *   this(), matching constructor in the class
-    
-*   super(), matching constructor in the superclass
-    
+*   super(), matching constructor in the superclass    
 *   return _value_, return the following value
     
 
@@ -549,83 +530,62 @@ _**Abstract classes and methods**_
 
 Java includes the abstract modifier to declare methods or classes as abstract. That a class is abstract means that_smallest_ one method is abstract, while the others may be non-abstract. Abstract methods are used e.g. as behavior is not implemented within the class, but within the class's extension. Assuming there is a class with some methods and variables, as well as a declared abstract method last:
 
+```java
 abstract class Pen {
+    int x, y;
 
-int x, y;
+    int getX() {
+        return x;
+    }
 
-int getX() {
+    int getY() {
+        return y;
+    }
 
-return x;
+    void setX(int a) {
+        x = a;
+    }
 
+    void setY(int b) {
+        y = b;
+    }
+
+    void drawTo(int a, int b) {
+        drawFromTo(getX(), getY(), a, b);
+        moveTo(a, b);
+    }
+
+    abstract void drawFromTo(int x, int y, int a, int b);
 }
-
-int getY() {
-
-return y;
-
-}
-
-void setX(int a) {
-
-x = a;
-
-}
-
-void setY(int b) {
-
-y = b;
-
-}
-
-void drawTo(int a, int b) {
-
-drawFromTo(getX(), getY(), a, b);
-
-moveTo(a, b);
-
-}
-
-abstract void drawFromTo(int x, int y, int a, int b);
-
-}
+```
 
 The Pen class defines a kind of abstract pen for a two-dimensional plane. It can keep track of the x and y coordinates, move the pen to new coordinates, and draw lines between already stored starting points and new specified coordinates. Still it doesn't draw anything on screen or plotter (printer). The abstract method drawFromTo() is defined but not implemented. Nor can objects be formed from this class; the class cannot be instantiated.
 
 In order for Java to be able to use the class, Pen can be extended to DrawablePen. The drawFormTo() method is overridden where the drawLine() method is in the default Graphics class:
 
+```java
 class DrawablePen extends Pen {
+    java.awt.Graphics g;
 
-java.awt.Graphics g;
+    DrawablePen(java.awt.Graphics \_g) {
+        g = \_g;
+    }
 
-DrawablePen(java.awt.Graphics \_g) {
+    void drawFromTo(int x, int y, int a, int b) {
+        g.java.awt.Graphics.drawLine(x, y, a, b);
+    }
 
-g = \_g;
+    void disposeGraphics() {
+        g.java.awt.Graphics.dispose();
+        System.gc();
+    }
 
+    void finalize() {
+        disposeGraphics();
+        super.finalize();
+    }
 }
-
-void drawFromTo(int x, int y, int a, int b) {
-
-g.java.awt.Graphics.drawLine(x, y, a, b);
-
-}
-
-void disposeGraphics() {
-
-g.java.awt.Graphics.dispose();
-
-System.gc();
-
-}
-
-void finalize() {
-
-disposeGraphics();
-
-super.finalize();
-
-}
-
-}
+```
 
 Methods with the modifier or the access (access) static or private cannot be declared abstract. Neither can constructors be declared abstract. Commonly, a conventional method called init() replaces the constructor in an abstract class.
 
@@ -633,69 +593,55 @@ _**Interface**_
 
 A language part in Java that is close to abstract classes and methods is interface. An interface is much like a collection of abstract methods. Interfaces can be declared abstract despite being redundant:
 
+```java
 abstract interface Transferable {
-
-...
-
+    ...
 }
+```
 
 The interfaces can contain declarations of methods and class constants:
 
+```java
 interface Transferable {
-
-void subject(String subject);
-
-void letter(String letter) throws TransferException;
-
-...
-
+    void subject(String subject);
+    void letter(String letter) throws TransferException;
+    ...
 }
+```
 
 Interfaces (like abstract classes) cannot be instantiated, because there is nothing to instantiate. But they can replace so-called multiple inheritance. By being able to implement several interfaces but only inherit (extend) a tree, multiple inheritance can be simulated.
 
 The interface Transferable is implemented in two classes, firstly Printer:
 
+```java
 class Printer
+    implements Transferable {
+    public void subject(String subject) {
+        ...
+    }
 
-implements Transferable {
-
-public void subject(String subject) {
-
-...
-
+    public void letter(String letter)
+    throws TranferException {
+        ...
+    }
 }
+```
 
-public void letter(String letter)
+and partly Mailer:
 
-throws TranferException {
-
-...
-
-}
-
-}
-
-och dels Mailer:
-
+```java
 class Mailer
+    implements Transferable {
+        public void subject(String subject) {
+        ...
+    }
 
-implements Transferable {
-
-public void subject(String subject) {
-
-...
-
+    public void letter(String letter)
+    throws TranferException {
+        ...
+    }
 }
-
-public void letter(String letter)
-
-throws TranferException {
-
-...
-
-}
-
-}
+```
 
 The classes Printer and Mailer must contain declarations of the methods that the interface promises (however, of course, the implementations can be further delegated). The methods do not have to perform anything, but can of course be empty. The classes certainly do not extend other classes and could e.g. have extended an abstract Transferable instead. But Mailer could also extend a more general SMTP class or Printer a more general Printer class. This is why interfaces exist. Although the names (signatures) of the methods implemented are identical, similar behavior is expected. Nevertheless, completely different tasks will be performed by each class. The calling class therefore does not need to interfere with the particular implementation within the methods.
 
@@ -703,21 +649,20 @@ Multiple interfaces
 
 Interfaces can form their own subtype hierarchy where interfaces can extend other interfaces:
 
+```java
 interface SetAccess {
-
-void set(Object key, Object value);
-
+    void set(Object key, Object value);
 }
 
 interface GetAccess {
-
-Object get(Object key);
+    Object get(Object key);
 
 }
 
 interface Access extends SetAccess, GetAccess {
 
 }
+```
 
 Thus, a class can e.g. implement parts of a particular type and not the entire stipulated type. In this case, e.g. the access method set() is only implemented in a class without get() being needed or vice versa.
 
