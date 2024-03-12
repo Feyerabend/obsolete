@@ -1,10 +1,10 @@
-# Obsolete source files in Java
+# Obsolete Java source files and some introductory texts
 
-Most of these files were made around 1998-2001 and reflect the Java of that time.
-They were intended for a follow-up book, which never was. But today it is more of
-an example for instructional use and illustrates Java simply enough, and how one
-might look at data structures. It was also before generics were implemented and
-standardized in Java, when experimental compilers were out.
+Most of these files were made around 1998 until maybe 2001 or so, and reflect Java
+of that time. They were intended for a follow-up to a book published in 1997, but
+that never was. Today it is more of an example for instructional use and illustrates
+Java simply enough at that time. It was also before e.g. generics were implemented,
+when they still were experimental.
 
 ## interpreter
 ..
@@ -18,3 +18,4 @@ standardized in Java, when experimental compilers were out.
 ## ex4
 
 Some files published in the Swedish computer magazine DMZ ('Datormagazin').
+Seems to be lacking some files though.
