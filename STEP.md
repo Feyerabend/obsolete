@@ -1,4 +1,6 @@
-﻿
+
+* A series of articles about Java ca 1998 published in Datamagasin *
+
 **1 Introduction**
 
 Java has grown significantly since it was publicly introduced by Sun Microsystems in 1995. Back then, the applications were mainly small applets (English applets) available on the web. Today, it can be found in everything from mobile phones to database servers.
@@ -7,11 +9,11 @@ Although Java is often referred to as a programming language, it is more closely
 
 Another is*the object orientation* which is clearer in Java. Java is also structured differently than C++. A C++ compiler generates directly executable code. Under Java, execution is split into two steps. A program is first compiled into a so-called*byte code*. This code is translated in a second step into executable code, or the byte code is interpreted. The last step takes place with the help of a virtual machine, JVM (Java Virtual Machine). With various techniques, the latter process can be sped up, which many hope will happen with the next generation of virtual machines, called HotSpot, which has been announced for release this winter.
 
-This series of articles will use Java 1.1 and only on a few occasions briefly mention how the same problem was solved in the previous version 1.0. Sun Microsystems provides a free development kit that can be downloaded from the Internet: JDK (Java Development Kit). Here we will also use Sun's JDK. It is recommended that the reader use a later version that complies with Java 1.1. Latest sharp version for JDK is JDK 1.1.7. For those who want to experiment more, JDK 1.2 (currently in beta versions) is recommended. However, you must must register before you can download this beta JDK.
+This series of articles will use Java 1.1 and only on a few occasions briefly mention how the same problem was solved in the previous version 1.0. Sun Microsystems provides a free development kit that can be downloaded from the Internet: JDK (Java Development Kit). Here we will also use Sun's JDK. It is recommended that the reader use a later version that complies with Java 1.1. Latest sharp version for JDK is JDK 1.1.7. For those who want to experiment more, JDK 1.2 (currently in beta versions) is recommended. However, you must register before you can download this beta JDK.
 
 No special development environment or class packages other than those found in the JDK are assumed in this article series. In addition to commercial development environments, there are advanced but free ones such as e.g. GNU Emacs. A very simple shareware editor, but fully useful for compiling and running Java is called TextPad. (Note that you must first install Java before the editor if you want to use the editor's built-in capabilities to run Java.) You can also write in e.g. Windows' included text editor Notepad, save, compile and run.
 
-Here we will limit ourselves to a small part of everything that Java can do: essentially*appletar* (English applets) and the window environment*AWT* (Abstract Windows Toolkit).
+Here we will limit ourselves to a small part of everything that Java can do: essentially applets and the window environment*AWT* (Abstract Windows Toolkit).
 
 ***Installation***
 
@@ -53,14 +55,14 @@ After installation, the computer must be restarted for Windows to be initialized
 This is a slightly shortened HTML code, which is now standardized. Save the text file asT.html in a suitable directory, e.g.test in the root of C. The next file is the Java source code file. Open the editor again and enter:
 
 ```java
-import java.applet.Applet;
-import java.awt.Graphics;
+	import java.applet.Applet;
+	import java.awt.Graphics;
 
-public class T extends Applet {
-`  `public void paint(Graphics g) {
-`    `g.drawString("Introduction", 20, 20);
-`  `}
-}
+	public class T extends Applet {
+		public void paint(Graphics g) {
+			g.drawString("Introduction", 20, 20);
+		}
+	}
 ```
 
 It is important that the code is written*exactly* as in the example, with upper and lower case letters. Namely, Java distinguishes between uppercase and lowercase letters. Save the file as `T.java`. This Java file must be compiled first:
@@ -69,7 +71,7 @@ It is important that the code is written*exactly* as in the example, with upper 
     C:\test> javac T.java
 ```
 
-At this point there are three files in the directorytest. Two text filesT.html andT.java, as well as a bytecode fileT.class which was created when the source code was compiled. If the compilation went well, we can also run the file throughappletviewer. It is now that the HTML file will be used:
+At this point there are three files in the directory 'test'. Two text files `T.html` and `T.java`, as well as a bytecode file T.class which was created when the source code was compiled. If the compilation went well, we can also run the file through appletviewer. It is now that the HTML file will be used:
 
 ```console
     C:\test> appletviewer T.html
@@ -84,34 +86,36 @@ If you have a web client such as Netscape Navigator or Microsoft Internet Explor
 ![](assets/images/step002.png)
 
 
-***T a first explanation***
+***T -- a first explanation***
 
 Don't be alarmed if you don't understand this explanation. Things will clear up eventually. The explanation is included to begin with an explanation at all. The first two lines import classes from `classes.zip`. The first says that an applet class is imported, the second that a graphics class is imported:
 
 ```java
-import java.applet.Applet;
-import java.awt.Graphics;
+	import java.applet.Applet;
+	import java.awt.Graphics;
 ```
 
 A first block with starting staples{ and closing braces}, says that it is an applet class that is declared:
 
 ```java
-public class T extends Applet {
-    ...
-}
+	public class T extends Applet {
+    		...
+	}
 ```
 
 The class declaration begins with a modifier, that it is a class, the name of the class, and that it extends another classApplet. In this applet class there is a method that is also delimited by braces:
 
-public void paint(Graphics g) {
+```java
+	public void paint(Graphics g) {
+		...
+	}
+```
 
-`  `…
+The method is called `paint()` with an argument `Graphics` and a parameter `g`. The method has a modifier which is `public` and a return type that is `void` (ie empty). Inside the method there is a statement that prints a piece of text on the applet's surface, at x-direction 20 pixels from the left and in y-direction 20 pixels from the top:
 
-}
-
-The method is calledpaint() with an argumentGraphics and a parameterg. The method has a modifier which ispublic and a return type that isvoid (ie empty). Inside the method there is a statement that prints a piece of text on the applet's surface, at x-direction 20 pixels from the left and in y-direction 20 pixels from the top:
-
-g.drawString("Introduction", 20, 20);
+```java
+	g.drawString("Introduction", 20, 20);
+```
 
 All this is completely incomprehensible at first, but it will become clear as we vary the content and explain through more examples.
 
@@ -139,11 +143,11 @@ A standard domain (default domain) with very restrictive rules is the domain whe
 
 The protected domains are based on each class that programs are built from. What rights they get depends on where they come from, and who signed the classes. When a program runs, the classes must reside within the domain that has all access to the resources the classes call. If not, a general error will be generated.
 
-A class can assert its accessibility right through an accessibility control class (AccessController). This allows classes that would not normally have access to certain resources to gain access by being able to use classes that already have these privileges. However, the classes cannot acquire their own rights (throughAccessController) other than they already have. But the possibility to e.g. using the signature and origin of other classes opens potential security holes. This model is more flexible than the previous one, but comes with the responsibility of being able to write very secure code.
+A class can assert its accessibility right through an accessibility control class (`AccessController`). This allows classes that would not normally have access to certain resources to gain access by being able to use classes that already have these privileges. However, the classes cannot acquire their own rights (through `AccessController`) other than they already have. But the possibility to e.g. using the signature and origin of other classes opens potential security holes. This model is more flexible than the previous one, but comes with the responsibility of being able to write very secure code.
 
-Privileged sections of code that allow any other classes to run certain code and must be written with care. Furthermore, policy can be defined. A policy means that it is declared where classes come from, who they are signed by, what permissions they have and what they are allowed to do. A policy file allows you to more dynamically allow or restrict classes without having to rewrite the classes or be forced to download new classes (as previously withSecurityManager where availability was hardcoded directly into the classes).
+Privileged sections of code that allow any other classes to run certain code and must be written with care. Furthermore, policy can be defined. A policy means that it is declared where classes come from, who they are signed by, what permissions they have and what they are allowed to do. A policy file allows you to more dynamically allow or restrict classes without having to rewrite the classes or be forced to download new classes (as previously with `SecurityManager` where availability was hardcoded directly into the classes).
 
-In addition to the protected domains, there is, as before, the verifier. The verifier takes care of the code once it arrives in the virtual machine (JVM). As the security manager (SecurityManager) existed as an extension outside the virtual machine (e.g. it did not exist when independent applications were running), the protected domains have been encapsulated in*runtime*. (A runtime can be thought of as the entire environment in which Java runs. Compare with the JRE Java Runtime Environment which is a tool in the JDK.) The Java language itself is designed to be safe in several respects, as it does not have explicit pointers, scope of indexes (arrays) are checked at runtime, strings are static (except string buffers), modifiers, default values ​​are assumed if no initializations occur, etc.
+In addition to the protected domains, there is, as before, the verifier. The verifier takes care of the code once it arrives in the virtual machine (JVM). As the security manager (SecurityManager) existed as an extension outside the virtual machine (e.g. it did not exist when independent applications were running), the protected domains have been encapsulated in *runtime*. (A runtime can be thought of as the entire environment in which Java runs. Compare with the JRE Java Runtime Environment which is a tool in the JDK.) The Java language itself is designed to be safe in several respects, as it does not have explicit pointers, scope of indexes (arrays) are checked at runtime, strings are static (except string buffers), modifiers, default values ​​are assumed if no initializations occur, etc.
 
 ***Other security***
 
@@ -155,23 +159,13 @@ Furthermore, there is JCE (Java Cryptography Extension) which allows cryptograph
 Set Lonnert
 
 
-
-
-
 Links:
 
-JDKs
+JDKs http://java.sun.com/
 
-<http://java.sun.com/>
+TextPad http://www.textpad.com/
 
-TextPad
-
-<http://www.textpad.com/>
-
-Emacs
-
-<http://www.cs.washington.edu/homes/voelker/ntemacs.html>
-
+Emacs http://www.cs.washington.edu/homes/voelker/ntemacs.html
 
 
 AUTOEXEC.BAT
@@ -213,13 +207,7 @@ T.class
 
 appletviewer
 
-![](step003.png)
-
-
-
-
-
-
+![](assets/images/step003.png)
 
 
 
@@ -273,27 +261,27 @@ In the future, the previously valid stable version JDK 1.0.2 will be followed. H
 
 You can basically follow the same instructions for downloading JDK 1.0.2 as you did for JDK 1.1. Select 2a or 2b below depending on which version JDK you choose. (Note that download addresses may change: first see Sun's home pages:http://java.sun.com/.)
 
-1\.	Create a directory, for examplejdk-1.0.2 orjdk-1.1. (If you have multiple versions of the JDK, it's a good idea to create different directories for them, and**not** put them in the same.)
+- 1.	Create a directory, for example jdk-1.0.2 or jdk-1.1. (If you have multiple versions of the JDK, it's a good idea to create different directories for them, and**not** put them in the same.)
 
-2a.	Download JDK 1.0.2 and documentation:http://java.sun.com/products/JDK/1.0.2/
+- 2a.	Download JDK 1.0.2 and documentation:http://java.sun.com/products/JDK/1.0.2/
 
-2b.	Download JDK 1.1 and documentation:http://java.sun.com/products/JDK/1.1/
+- 2b.	Download JDK 1.1 and documentation:http://java.sun.com/products/JDK/1.1/
 
-4\.	Place the files in your newly created directory.
+- 4.	Place the files in your newly created directory.
 
-3\.	Unzip the compressed and downloaded files. (Different types of unpacking software may be needed depending on your operating system.) Pack**not** upclasses.zip.
+- 3.	Unzip the compressed and downloaded files. (Different types of unpacking software may be needed depending on your operating system.) Pack**not** upclasses.zip.
 
-4\.	To save space, you can delete the files you originally downloaded.
+- 4.	To save space, you can delete the files you originally downloaded.
 
-5\.	Set path and environment variables.
+- 5.	Set path and environment variables.
 
 If the JDK download was successful, you only need to assign new values ​​to two variables:*the path* and*the environment variable*.
 
 The path tells your system where the Java binaries are located, which can be executed by the system. You should therefore not delete other information in the system's search file, but only add information about the new path for Java.
 
-The environmental variableCLASSPATH can mostly be specified as arguments to the commands Java has. But the easiest way is to assign the value to the variable once directly for the system. The variable indicates to the interpreter or applet viewer where Java should start searching for the pre-compiled classes you have written or which are pre-compiled in the JDK (standard classes). The variable is also used by other commands (programs). However, if you have multiple JDKs installed, you must select only*in* set of default classes ie.CLASSPATH may contain only one path to the default classes.
+The environmental variable `CLASSPATH` can mostly be specified as arguments to the commands Java has. But the easiest way is to assign the value to the variable once directly for the system. The variable indicates to the interpreter or applet viewer where Java should start searching for the pre-compiled classes you have written or which are pre-compiled in the JDK (standard classes). The variable is also used by other commands (programs). However, if you have multiple JDKs installed, you must select only*in* set of default classes ie. `CLASSPATH` may contain only one path to the default classes.
 
-The following indication ofCLASSPATH tells the system to first search the current directory (a dot) before searching the directory thereclasses.zip exists. Of course, you can specify more directories with the respective directory separator there\*.class exists. (The directory separator for Microsoft Windows 95 and NT is a semicolon, while Solaris has a colon.)
+The following indication of `CLASSPATH` tells the system to first search the current directory (a dot) before searching the directory there `classes.zip` exists. Of course, you can specify more directories with the respective directory separator there\*.class exists. (The directory separator for Microsoft Windows 95 and NT is a semicolon, while Solaris has a colon.)
 
 
 *JDK 1.0.2*
@@ -343,20 +331,16 @@ Java's development package contains, among other things, two files that are comp
 In addition to these composite files, there are various programs, some of which are specially made for the platform (computer and operating system) you have, for example Windows NT, Windows 95 or Solaris (Unix). The more important ones are:appletviewer, javac, java, javadoc, javap andjdb. Furthermore, there are programs (or commands) for the JDK,\*.java as well as compiled\*.class filer:
 
 appletviewer
-
-`	`A so-called applet viewer where you can see and test run your applets.
+	`A so-called applet viewer where you can see and test run your applets.
 
 classes.zip
-
-`	`Contains all compiled\*.class* files combined into a single one.zip in.
+	`Contains all compiled\*.class* files combined into a single one.zip in.
 
 java
-
-`	`The interpreter for Java. Can run programs written in Java, and compiled to byte code withjavac.
+	`The interpreter for Java. Can run programs written in Java, and compiled to byte code withjavac.
 
 javac
-
-`	`A compiler for Java, which from source code generates bytecode.
+	`A compiler for Java, which from source code generates bytecode.
 
 javadoc
 **
@@ -364,29 +348,28 @@ javadoc
 
 javap
 **
-`	`A Java bytecode disassembler, which prints a human-readable representation of the bytecode.
+	`A Java bytecode disassembler, which prints a human-readable representation of the bytecode.
 
 jdb
 **
-`	`A "debugger" for Java. Helps you find errors (bugs) in Java programs.
+	`A "debugger" for Java. Helps you find errors (bugs) in Java programs.
 
 src.zip
-
-`	`All source code files for\*.java which is inclasses.zip. All classes documented through the included API docs are included here.
+	`All source code files for\*.java which is in classes.zip. All classes documented through the included API docs are included here.
 
 Some other programs come with JDK 1.1. But it is only when you master Java more than what this book covers, that you get use for those programs. Ready-made applets (demo) come with the JDK that you should experiment with and reuse. You can thus start a demo to see if the installation was successful. You do this by moving to the directory where they are located:
 
-`	`C:\> cd jdk-1.0.2\java\demo\TicTacToe
+	`C:\> cd jdk-1.0.2\java\demo\TicTacToe
 
-`	`C:\> appletviewer example1.html
+	`C:\> appletviewer example1.html
 
 Respective:
 
-`	`C:\> cd jdk-1.1\java\demo\TicTacToe
+	`C:\> cd jdk-1.1\java\demo\TicTacToe
 
-`	`C:\> appletviewer example1.html
+	`C:\> appletviewer example1.html
 
-If you have entered path and environment variables in theAUTOEXEC.BAT (or equivalent) you must restart your computer first.
+If you have entered path and environment variables in the AUTOEXEC.BAT (or equivalent) you must restart your computer first.
 
 
 
@@ -1597,12 +1580,12 @@ Set Lonnert
 
 *Image 1*
 
-![](step008.png)
+![](assets/images/step008.png)
 
 *picture 2*
 
 
-*picture 2![](step009.png)![ref1]*
+*picture 2![](assets/images/step009.png)![ref1]*
 
 
 **[Here comes more about SWING]**
@@ -1612,4 +1595,4 @@ Set Lonnert
 
 [^2]: Should you have problems with installation or downloading, there is a special newsgroup that only deals with installation:comp.lang.java.setup.
 
-[ref1]: step006.png
+[ref1](assets/images/step006.png)
