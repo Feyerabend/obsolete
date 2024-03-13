@@ -1,5 +1,5 @@
 
-* A series of articles about Java ca 1998 published in Datamagasin *
+# A series of articles about Java ca 1998 published in Datamagasin
 
 **1 Introduction**
 
