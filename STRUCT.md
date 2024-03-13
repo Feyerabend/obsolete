@@ -20,7 +20,7 @@ are examples). The list also provides insights into reusable structures, then
 lists can be used for many different types of data without having to
 is changed.
 
-BröA list is, in short, a structure where the data is in a linear fashion
+A list is, in short, a structure where the data is in a linear fashion
 order (but not necessarily sorted). Lists appear in several
 varieties such as singly linked or doubly linked lists. Of every
 variety, there are several variants, where a single linked or double linked
@@ -49,12 +49,12 @@ To complicate matters somewhat, one can define sequences
 (somewhat incomplete and informal) where element is what will
 correspond to the atoms of the list.
 
-a. If X is an element, then X is a sequence element.
+a. If *X* is an element, then *X* is a sequence element.
 
-b. If X is a sequence, then X is a sequence element.
+b. If *X* is a sequence, then *X* is a sequence element.
 
-c. If X … Xn are sequence elements then is
-<X … Xn> a sequence where … means
+c. If *X<sub>1</sub>* … *X<sub>n</sub>* are sequence elements then is
+__<__*X<sub>1</sub>* … *X<sub>n</sub>*__>__ a sequence where … means
 more or no occurrences of sequence elements.
 
 Then the abstract data structure sequence is mapped to
