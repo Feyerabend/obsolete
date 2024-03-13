@@ -72,10 +72,10 @@ Xn>) =
 In the following, implementations are limited for the sake of simplicity
 to simple linked straight list:
 
-[a1 [
-a2
-[a3 [ …
-[an []] … ]]]]
+[a<sub>1</sub> [
+a<sub>2</sub>
+[a<sub>3</sub> [ …
+[a<sub>n</sub> []] … ]]]]
 
 Traditionally, when lists are implemented, they have often been tampered with
 using pointers. Java lacks pointers such as C++ has, but offers i
