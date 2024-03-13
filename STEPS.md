@@ -261,20 +261,14 @@ In the future, the previously valid stable version JDK 1.0.2 will be followed. H
 
 You can basically follow the same instructions for downloading JDK 1.0.2 as you did for JDK 1.1. Select 2a or 2b below depending on which version JDK you choose. (Note that download addresses may change: first see Sun's home pages:http://java.sun.com/.)
 
-- 1.	Create a directory, for example jdk-1.0.2 or jdk-1.1. (If you have multiple versions of the JDK, it's a good idea to create different directories for them, and**not** put them in the same.)
-
-- 2
-	- a.	Download JDK 1.0.2 and documentation:http://java.sun.com/products/JDK/1.0.2/
-
-	- b.	Download JDK 1.1 and documentation:http://java.sun.com/products/JDK/1.1/
-
-- 4.	Place the files in your newly created directory.
-
-- 3.	Unzip the compressed and downloaded files. (Different types of unpacking software may be needed depending on your operating system.) Pack**not** upclasses.zip.
-
-- 4.	To save space, you can delete the files you originally downloaded.
-
-- 5.	Set path and environment variables.
+1.	Create a directory, for example jdk-1.0.2 or jdk-1.1. (If you have multiple versions of the JDK, it's a good idea to create different directories for them, and**not** put them in the same.)
+2.
+	- a.	Download JDK 1.0.2 and documentation: http://java.sun.com/products/JDK/1.0.2/
+	- b.	Download JDK 1.1 and documentation: http://java.sun.com/products/JDK/1.1/
+3.	Place the files in your newly created directory.
+4.	Unzip the compressed and downloaded files. (Different types of unpacking software may be needed depending on your operating system.) Pack**not** upclasses.zip.
+5.	To save space, you can delete the files you originally downloaded.
+6.	Set path and environment variables.
 
 If the JDK download was successful, you only need to assign new values ​​to two variables:*the path* and*the environment variable*.
 
