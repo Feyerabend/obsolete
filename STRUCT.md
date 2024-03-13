@@ -49,11 +49,9 @@ To complicate matters somewhat, one can define sequences
 (somewhat incomplete and informal) where element is what will
 correspond to the atoms of the list.
 
-a. If *X* is an element, then *X* is a sequence element.
-
-b. If *X* is a sequence, then *X* is a sequence element.
-
-c. If *X<sub>1</sub>* … *X<sub>n</sub>* are sequence elements then is
+1. If *X* is an element, then *X* is a sequence element.
+2. If *X* is a sequence, then *X* is a sequence element.
+3. If *X<sub>1</sub>* … *X<sub>n</sub>* are sequence elements then is
 __<__*X<sub>1</sub>* … *X<sub>n</sub>*__>__ a sequence where … means
 more or no occurrences of sequence elements.
 
