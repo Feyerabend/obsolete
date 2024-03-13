@@ -1,5 +1,5 @@
 
-# A series of articles about Java ca 1998 published in *Datormagasin*
+# A series of articles about Java ca 1998 published in *PC+*
 
 **1 Introduction**
 
@@ -55,14 +55,14 @@ After installation, the computer must be restarted for Windows to be initialized
 This is a slightly shortened HTML code, which is now standardized. Save the text file asT.html in a suitable directory, e.g.test in the root of C. The next file is the Java source code file. Open the editor again and enter:
 
 ```java
-	import java.applet.Applet;
-	import java.awt.Graphics;
+import java.applet.Applet;
+import java.awt.Graphics;
 
-	public class T extends Applet {
-		public void paint(Graphics g) {
-			g.drawString("Introduction", 20, 20);
-		}
+public class T extends Applet {
+	public void paint(Graphics g) {
+		g.drawString("Introduction", 20, 20);
 	}
+}
 ```
 
 It is important that the code is written*exactly* as in the example, with upper and lower case letters. Namely, Java distinguishes between uppercase and lowercase letters. Save the file as `T.java`. This Java file must be compiled first:
@@ -91,30 +91,30 @@ If you have a web client such as Netscape Navigator or Microsoft Internet Explor
 Don't be alarmed if you don't understand this explanation. Things will clear up eventually. The explanation is included to begin with an explanation at all. The first two lines import classes from `classes.zip`. The first says that an applet class is imported, the second that a graphics class is imported:
 
 ```java
-	import java.applet.Applet;
-	import java.awt.Graphics;
+import java.applet.Applet;
+import java.awt.Graphics;
 ```
 
 A first block with starting staples{ and closing braces}, says that it is an applet class that is declared:
 
 ```java
-	public class T extends Applet {
-    		...
-	}
+public class T extends Applet {
+	...
+}
 ```
 
 The class declaration begins with a modifier, that it is a class, the name of the class, and that it extends another classApplet. In this applet class there is a method that is also delimited by braces:
 
 ```java
-	public void paint(Graphics g) {
-		...
-	}
+public void paint(Graphics g) {
+	...
+}
 ```
 
 The method is called `paint()` with an argument `Graphics` and a parameter `g`. The method has a modifier which is `public` and a return type that is `void` (ie empty). Inside the method there is a statement that prints a piece of text on the applet's surface, at x-direction 20 pixels from the left and in y-direction 20 pixels from the top:
 
 ```java
-	g.drawString("Introduction", 20, 20);
+g.drawString("Introduction", 20, 20);
 ```
 
 All this is completely incomprehensible at first, but it will become clear as we vary the content and explain through more examples.
@@ -123,7 +123,7 @@ All this is completely incomprehensible at first, but it will become clear as we
 
 The applet viewer (or equivalent web client) is needed to run bytecode that is an extension of the applet class (java.applet.Applet). In the HTML file there is a reference to the byte code fileT.class. For the most part, the machine-specific code in the applet viewer deals with window management. Window management is fundamentally different under Microsoft Windows, Apple MacOS or X Windows. Although window management is different, Java has classes that build an abstract graphical interface that the Java programmer works with: AWT (Abstract Window Toolkit). Therefore, you never have to worry about what happens under the shell of Java. The same Java program can be used under all these operating systems without rewriting the program.
 
-Applets work great to be transported on the Internet. Suppose your filesT.html andT.class has been placed in a directory for websites on the Internet. If you now return and start a web client on your own computer, the client first downloads a copy of the HTML file, and starts an internal applet viewer that loads the bytecode fileT.class.
+Applets work great to be transported on the Internet. Suppose your filesT.html andT.class has been placed in a directory for websites on the Internet. If you now return and start a web client on your own computer, the client first downloads a copy of the HTML file, and starts an internal applet viewer that loads the bytecode file `T.class`.
 
 The bytecode file is verified to check that nothing has happened while it has been online. If the bytecode file is approved by the verifier, it is handed over to the class loader. The class loader controls, among other things, that the downloaded file does not act on its own in place of already loaded classes. Classes related to security.
 
@@ -175,10 +175,10 @@ AUTOEXEC.BAT
 
 JDK
 
-|appletviewer|A so-called applet viewer where you can see and test run your applets.|
+| appletviewer |A so-called applet viewer where you can see and test run your applets.|
 | :- | :- |
-|java|The interpreter for Java. Can run programs written and compiled to byte code withjavac.|
-|javac|A compiler for Java, which from source code generates bytecode.|
+| java|The interpreter for Java. Can run programs written and compiled to byte code with javac.|
+| javac |A compiler for Java, which from source code generates bytecode.|
 |classes.zip|A compressed file containing all standard classes (\*.class filer).|
 
 
@@ -192,12 +192,12 @@ T.java
 |<p></p><p>import java.applet.Applet;</p><p>import java.awt.Graphics;</p><p></p><p>public class T extends Applet {</p><p>`  `public void paint(Graphics g) {</p><p>`    `g.drawString("Introduction", 20, 20);</p><p>`  `}</p><p>}</p><p></p>|
 | :- |
 
-*körning*
+*runtime*
 
 
 T.html
 
-*kompilering*
+*compiling*
 
 T.java
 
@@ -263,9 +263,10 @@ You can basically follow the same instructions for downloading JDK 1.0.2 as you 
 
 - 1.	Create a directory, for example jdk-1.0.2 or jdk-1.1. (If you have multiple versions of the JDK, it's a good idea to create different directories for them, and**not** put them in the same.)
 
-- 2a.	Download JDK 1.0.2 and documentation:http://java.sun.com/products/JDK/1.0.2/
+- 2
+	- a.	Download JDK 1.0.2 and documentation:http://java.sun.com/products/JDK/1.0.2/
 
-- 2b.	Download JDK 1.1 and documentation:http://java.sun.com/products/JDK/1.1/
+	- b.	Download JDK 1.1 and documentation:http://java.sun.com/products/JDK/1.1/
 
 - 4.	Place the files in your newly created directory.
 
