@@ -263,8 +263,8 @@ You can basically follow the same instructions for downloading JDK 1.0.2 as you 
 
 1.	Create a directory, for example jdk-1.0.2 or jdk-1.1. (If you have multiple versions of the JDK, it's a good idea to create different directories for them, and**not** put them in the same.)
 2.
-	a.	Download JDK 1.0.2 and documentation: http://java.sun.com/products/JDK/1.0.2/  or
-	b.	Download JDK 1.1 and documentation: http://java.sun.com/products/JDK/1.1/
+	- a.	Download JDK 1.0.2 and documentation: http://java.sun.com/products/JDK/1.0.2/  or
+	- b.	Download JDK 1.1 and documentation: http://java.sun.com/products/JDK/1.1/
 3.	Place the files in your newly created directory.
 4.	Unzip the compressed and downloaded files. (Different types of unpacking software may be needed depending on your operating system.) Pack**not** upclasses.zip.
 5.	To save space, you can delete the files you originally downloaded.
@@ -283,20 +283,21 @@ The following indication of `CLASSPATH` tells the system to first search the cur
 
 **Microsoft Windows NT (Intel) och 95**
 
-Ange i CLASSPATH as well as edit and addpath in the fileAUTOEXEC.BAT:
+Set CLASSPATH as well as edit and add path in the fileAUTOEXEC.BAT:
 
+```console
 path *previous-path*;C:\jdk-1.0.2\java\bin
-
 set CLASSPATH=.;C:\jdk-1.0.2\java\lib\classes.zip
+```
 
 **Solaris 2.3, 2.4, 2.5, 2.5.1 for SPARC-based machines**
 
-add to.cshrc file, if you are working in c-shell:
+add to `.cshrc` file, if you are working in c-shell:
 
+```console
 set path = (*previous-path* /usr/local/jdk-1.0.2/java/bin)
-
 setenv CLASSPATH .:/usr/local/jdk-1.0.2/java/lib/classes.zip
-
+```
 
 *JDK 1.1*
 
@@ -304,7 +305,7 @@ Sun Microsystems' development package for Java JDK 1.1, now comes partly in down
 
 **Microsoft Windows NT (Intel) och 95**
 
-Ange i CLASSPATH as well as edit and addpath in the fileAUTOEXEC.BAT:
+Set CLASSPATH as well as edit and addpath in the fileAUTOEXEC.BAT:
 
 path *previous-path*;C:\jdk-1.1\java\bin
 
