@@ -6,16 +6,38 @@ that never was. Today it is more of an example for instructional use and illustr
 Java simply enough at that time. It was also before e.g. generics were implemented,
 when they still were experimental.
 
-## interpreter
+## Documents
+
+### [Introduction](INTRO.md)
+
+It starts with a synopsis of the planned book, or an introduction to Java. Just to get
+things started.
+
+
+### [Object-Orientation](OBJECT.md)
+
+A chapter on object orientation in Java. It outlines the traditional way of OO when
+describing a programming language. In short, what the language can do and is intended
+to do.
+
+
+### [Data Structures](STRUCT.md)
+
+...
+
+
+## Source
+
+### interpreter
 ..
 
-## list-tree
+### list-tree
 ..
 
-## list
+### list
 ..
 
-## ex4
+### ex4
 
 Some files published in the Swedish computer magazine DMZ ('Datormagazin').
-Seems to be lacking some files though.
+The archive does not seems to be coherent, and lacking files.
