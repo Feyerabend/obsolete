@@ -358,14 +358,12 @@ import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
 class Node {
-
     ...
-
 }
 
 class Stack {
 
-...
+    ...
 
     Enumerator elements() {
         return new Enumerator(top);
@@ -379,11 +377,9 @@ class Enumerator implements Enumeration {
     Enumerator(Node _i) {
         i = _i;
     }
-
     public boolean hasMoreElements() {
         return i != null;
     }
-
     public Object nextElement() {
         if (i != null) {
             Node x = i;
@@ -596,7 +592,7 @@ can simplify programming but can also complicate readability.
 Reuse is about simplicity, where trade-offs are not entirely obvious
 between readability and simplified programming.
 
-1. ***Inheritance and inheritance***
+## Inheritance and inheritance
 
 [Nested classes: example: a calculator with a nested stack]
 
@@ -659,19 +655,14 @@ could implement:
 * `search(T, k)` A query given a tree and a key k,
 returns the node key points to or null if no value
 exists.
-
 * `insert(x)` A modification operation, given the tree place node x in
 the tree.
-
 * `delete(x)` A modification operation, given the tree delete the node x
 out of the tree.
-
 * `minimum(T)` A query that, given a branch T, returns the node with it
 smallest key.
-
 * `maximum(T)` A query that, given a branch T, returns the node with it
 biggest key.
-
 * `successor(x)` A query that, given a node and tree, returns
 next larger node according to its key or null if the node already is
 largest.
