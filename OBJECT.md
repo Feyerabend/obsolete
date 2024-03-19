@@ -1,4 +1,4 @@
-# 2. Object structures**
+# Object structures
 
 This chapter describes basic (but not all) object structures found in Java. These are the linguistic starting points for designing object-oriented programs in Java. The object structures also show those_possibility_ available to write programs in Java.
 

@@ -6,6 +6,10 @@ that never was. Today it is more of an example for instructional use and illustr
 Java simply enough at that time. It was also before e.g. generics were implemented,
 when they still were experimental.
 
+*If you want to use this in any way, it is free to change/expand on or whatever you
+want to it. I contrast to the copyrights usually adopted to books.*
+
+
 ## Documents
 
 ### [Introduction](INTRO.md)

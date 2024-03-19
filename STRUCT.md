@@ -34,9 +34,7 @@ composition lists:
 
 ```
 [a []]
-
-[b [d[]]
-
+[b [d []]
 [b [c [[d [d []]][a [[b []][]]]]]]]
 ```
 
@@ -51,29 +49,19 @@ correspond to the atoms of the list.
 
 1. If *X* is an element, then *X* is a sequence element.
 2. If *X* is a sequence, then *X* is a sequence element.
-3. If *X<sub>1</sub>* … *X<sub>n</sub>* are sequence elements then is
-__<__*X<sub>1</sub>* … *X<sub>n</sub>*__>__ a sequence where … means
+3. If *X<sub>1</sub>* ... *X<sub>n</sub>* are sequence elements then is
+__<__*X<sub>1</sub>* ... *X<sub>n</sub>*__>__ a sequence where … means
 more or no occurrences of sequence elements.
 
 Then the abstract data structure sequence is mapped to
 the representation lists:
 
-*f*(<X1
-X2 X3 …
-Xn>) =
-[*f*(X1)
-[*f*(X2)
-[*f*(X3) [ …
-[*f*(X4) []]
-… ]]]]
+*f*(<X<sub>1</sub> X<sub>2</sub> X<sub>3</sub> ... X<sub>n</sub>) = [*f*(X<sub>1</sub>) [*f*(X<sub>2</sub>) [*f*(X<sub>3</sub>) [ ... [*f*(X<sub>4</sub>) []] ... ]]]]
 
 In the following, implementations are limited for the sake of simplicity
 to simple linked straight list:
 
-[a<sub>1</sub> [
-a<sub>2</sub>
-[a<sub>3</sub> [ …
-[a<sub>n</sub> []] … ]]]]
+[a<sub>1</sub> [ a<sub>2</sub> [a<sub>3</sub> [ ... [a<sub>n</sub> []] ... ]]]]
 
 Traditionally, when lists are implemented, they have often been tampered with
 using pointers. Java lacks pointers such as C++ has, but offers i
@@ -83,7 +71,7 @@ complex pointer arithmetic is avoided, and thus also possible and common
 wrong. In the following, Java's reference structures are referred to when "pointers"
 mentioned (but with which there are certain abstract similarities).
 
-1. *Lists in practice*
+*Lists in practice*
 
 Lists can be advantageously based on the node concept. A node is intuitive
 a hub of information. The node contains chained pointers to others
@@ -96,127 +84,87 @@ be links to other nodes. The objects can also carry others with them
 object (satellite) placed in the list. A node can e.g.
 constructed:
 
-`class Node ``{`
+```java
+class Node {
+    Object o;
+    Node n;
 
-`  Object o;`
+    Node(Object _o, Node _n) {
+        o = _o;
+        n = _n;
 
-`  Node n;`
-
-`  Node(Object _o, Node _n) ``{`
-
-` o = _o;`
-
-`n = _n;`
-
-`  ``}`
-
-`}`
+    }
+}
+```
 
 The nodes are created as new objects with new. Each node has an object and
 a link to the next node. Last node that does not point further is null:
 
-`Node root =`
-
-`  new Node(new Float(23.89),`
-
-`    new Node(new Boolean(true),`
-
-`      new Node(new String("Mushroom"),`
-
-`        new Node(new Integer(5),`
-
-`          new Node(new Integer(19),`
-
-`            new Node(new Long(460708224998), null))))));`
+```java
+Node root =
+    new Node(new Float(23.89),
+        new Node(new Boolean(true),
+            new Node(new String("Mushroom"),
+                new Node(new Integer(5),
+                    new Node(new Integer(19),
+                        new Node(new Long(460708224998), null))))));
+```
 
 Then object orientation allows manipulations with data to be set
 together with their data into objects, the nodes can be added with some
 algorithms that allow certain manipulations, as shown in list
 3.1.
 
-**Quote - list 3.1**
+*List 3.1*
 
-`class Node ``{`
+```java
+class Node {
+    Object h;
+    Node t;
 
-`  Object h;`
+    Node(Object _h, Node _t) {
+        h = _h;
+        t = _t;
+    }
 
-`  Node t;`
+    boolean isEmpty() {
+        return (h == null) && (t == null);
+    }
 
-`  Node(Object _h, Node _t) ``{`
+    int length() {
+        if (isEmpty()) {
+            return 0;
+       } else if (t == null) {
+            return 1;
+        } else {
+            return 1 + t.length();
+        }
+    }
 
-`    h = _h;`
+    Object index(int i) {
+        if (i < 0) {
+            return null;
+        } else if (i == 0) {
+            return h;
+        } else if (t != null) {
+            return t.index(i - 1);
+        } else {
+            return null;
+        }
+    }
 
-`    t = _t;`
-
-`  ``}`
-
-`  boolean isEmpty() ``{`
-
-`    return (h == null) && (t == null);`
-
-`  ``}`
-
-`  int length() ``{`
-
-`    if (isEmpty()) ``{`
-
-`      return 0;`
-
-`    ``}`` else if (t == null) ``{`
-
-`      return 1;`
-
-`    ``}`` else ``{`
-
-`      return 1 + t.length();`
-
-`    ``}`
-
-`  ``}`
-
-`  Object index(int i) ``{`
-
-`    if (i < 0) ``{`
-
-`      return null;`
-
-`    ``}`` else if (i == 0) ``{`
-
-`      return h;`
-
-`    ``}`` else if (t != null) ``{`
-
-`      return t.index(i - 1);`
-
-`    ``}`` else ``{`
-
-`      return null;`
-
-`    ``}`
-
-`  ``}`
-
-`  boolean includes(Object o) ``{`
-
-`    if (h.equals(o)) ``{`
-
-`      return true;`
-
-`    ``}`
-
-`    if (t == null) ``{`
-
-`      return false;`
-
-`    ``}`` else ``{`
-
-`      return t.includes(o);`
-
-`    ``}`
-
-`  ``}`
-
-`}`
+    boolean includes(Object o) {
+        if (h.equals(o)) {
+            return true;
+        }
+        if (t == null) {
+            return false;
+        } else {
+            return t.includes(o);
+        }
+    }
+}
+```
 
 Three methods in Listing 3.1 are recursive. Because the nodes are clustered
 with fields that point to other nodes, the methods can use them
@@ -224,7 +172,7 @@ to perform their manipulations. Based on the own node: the length of
 the chain, return the object the node is associated with or look for
 if a particular item is in the chain.
 
-1.  ***Iteratorer***
+*Iteratorer*
 
 A problem with the list in 3.1 is that all operations become fast
 depending on letting the list manage the routines itself. A relative
@@ -233,81 +181,56 @@ if the object orientation allows it, these are a bit too close
 merged. This means here that the administration should be moved
 out.
 
-**Quote - föList 3.2**
+*List 3.2*
 
-`class Node ``{`
+```java
+class Node {
+    Object h;
+    Node t;
 
-`  Object h;`
+    Node(Object _h, Node _t) {
+        h = _h;
+        t = _t;
+    }
+}
 
-`  Node t;`
+class List {
+    Node root = null;
 
-`  Node(Object _h, Node _t) ``{`
+    boolean isEmpty() {
+        return root == null;
+    }
 
-`    h = _h;`
+    void add(Object v) {
+        root = new Node(v, root);
+    }
 
-`    t = _t;`
+    Iterator elements() {
+        return new Iterator(root);
+    }
+}
 
-`  ``}`
+class Iterator {
+    Node i;
 
-`}`
+    Iterator(Node _i) {
+        i = _i;
+    }
 
-`class List ``{`
+    boolean hasMoreElements() {
+        return i != null;
+    }
 
-`  Node root = null;`
-
-`  boolean isEmpty() ``{`
-
-`    return root == null;`
-
-`  ``}`
-
-`  void add(Object v) ``{`
-
-`    root = new Node(v, root);`
-
-`  ``}`
-
-`  Iterator elements() ``{`
-
-`    return new Iterator(root);`
-
-`  ``}`
-
-`}`
-
-`class Iterator ``{`
-
-`  Node i;`
-
-`  Iterator(Node _i) ``{`
-
-`    i = _i;`
-
-`  ``}`
-
-`  boolean hasMoreElements() ``{`
-
-`    return i != null;`
-
-`  ``}`
-
-`  Object nextElement() ``{`
-
-`    if (i != null) ``{`
-
-`      Node x = i;`
-
-`      i = i.t;`
-
-`      return x.h;`
-
-`    ``}`
-
-`    throw new java.util.NoSuchElementException("Node");`
-
-`  ``}`
-
-`}`
+    Object nextElement() {
+        if (i != null) {
+            Node x = i;
+            i = i.t;
+            return x.h;
+        }
+        throw new java.util.NoSuchElementException("Node");
+    }
+}
+```
 
 In listing 3.2, an iterator has instead been placed between the list and
 the routines that are supposed to use the list. An advantage and disadvantage is that
@@ -318,7 +241,7 @@ BröAnother example of administration of data that can do without
 the structure is an implementation of a stack. Listing 3.3 shows a class
 which uses both the Node and Iterator classes from Listing 3.2.
 
-**Quote - list 3.3**
+*List 3.3*
 
 `class Stack ``{`
 
@@ -1582,47 +1505,34 @@ largest.
 
 `}`
 
-*Fabriker* (factory)
+*Factories* (factory)
 
 [separate abstract factory from method factory]
 
-`abstract class Node ``{`
+```java
+abstract class Node {
+    abstract Node accept(NodeVisitor ask);
+}
 
-`  abstract Node accept(NodeVisitor ask);`
+class NextNode extends Node {
+    Object t;
+    Node n;
 
-`}`
+    NextNode(Object _t, Node _n) {
+        t = _t;
+        n = _n;
+    }
 
-`class NextNode extends Node ``{`
+    Node accept(NodeVisitor ask) {
+        return ask.forNextNode(t, n);
+    }
+}
 
-`  Object t;`
-
-`  Node n;`
-
-`  NextNode(Object _t, Node _n) ``{`
-
-`    t = _t;`
-
-`n = _n;`
-
-`  ``}`
-
-`  Node accept(NodeVisitor ask) ``{`
-
-`    return ask.forNextNode(t, n);`
-
-`  ``}`
-
-`}`
-
-`class EmptyNode extends Node ``{`
-
-`  Node accept(NodeVisitor ask) ``{`
-
-`    return ask.forEmptyNode();`
-
-`  ``}`
-
-`}`
+class EmptyNode extends Node {
+    Node accept(NodeVisitor ask) {
+        return ask.forEmptyNode();
+    }
+}
 
 `interface NodeVisitor ``{`
 
@@ -1840,12 +1750,10 @@ largest.
 
 `          new NextNode("Grounded", new EmptyNode())))));`
 
-`    System.out.println(n.accept(new Replace("Misc", new Integer(24))));`
-
-`    System.out.println(n.accept(new Add(new Integer(777))));`
-
-`  ``}`
-
-`}`
+        System.out.println(n.accept(new Replace("Misc", new Integer(24))));
+        System.out.println(n.accept(new Add(new Integer(777))));
+    }
+}
+```
 
 
