@@ -3,10 +3,11 @@
 This chapter describes how abstractions from data structure to
 some program structures may look like. From the example lists
 it is shown how the implementation further leads to more general
-patterns (design patterns) like for example. visitor (visitor). The
+patterns (*design patterns*) like for example. visitor. The
 intention is to narrow down the possibilities in object structures
 to some *normative* program structures. It is also in the mastered
 limitation that the reuse can begin.
+
 
 ## Lists
 
@@ -70,6 +71,7 @@ pointer structures. For example, directly addressed memory allocation can and
 complex pointer arithmetic is avoided, and thus also possible and common
 wrong. In the following, Java's reference structures are referred to when "pointers"
 mentioned (but with which there are certain abstract similarities).
+
 
 ### Lists in practice
 
@@ -165,9 +167,10 @@ to perform their manipulations. Based on the own node: the length of
 the chain, return the object the node is associated with or look for
 if a particular item is in the chain.
 
+
 ### Iterators
 
-A problem with the list in 3.1 is that all operations become fast
+A problem with the list in 3.1 is that all operations become
 depending on letting the list manage the routines itself. A relative
 problem is that data and administration of data are not separated. Also
 if the object orientation allows it, these are a bit too close
@@ -222,8 +225,8 @@ class Iterator {
 ```
 
 In listing 3.2, an iterator has instead been placed between the list and
-the routines that are supposed to use the list. An advantage and disadvantage is that
-it is best suited for routines (methods) that do not depend on themselves
+the routines that are supposed to use the list. An advantage and disadvantage
+is that it is best suited for routines (methods) that do not depend on themselves
 the structure of the list, but cope with (only) enumerations.
 
 Another example of administration of data that can do without
@@ -256,11 +259,11 @@ class Stack {
 }
 ```
 
-An iterator is a general structure (design pattern) that can be used
-for many different purposes. It is common to consider the data (or
-other objects) are administered by an iterator which in turn is managed by a
-client. A variant of iterator can be constructed through interfaces where it
-abstracted pointer can be used:
+An iterator is a general structure (design pattern) that can be used for many
+different purposes. It is common to consider the data (or other objects) are
+administered by an iterator which in turn is managed by a client. A variant of
+iterator can be constructed through interfaces where it abstracted pointer
+can be used:
 
 * `init()` initialization, pointer at root
 * `currentItem()` currently selected item
@@ -273,7 +276,6 @@ abstracted pointer can be used:
 ```java
 class List {
     ...
-
     ListPointer elements() {
         return new ListPointer(root);
     }
@@ -293,7 +295,6 @@ class ListPointer {
             p = p.t;
         }
     }
-
     Object currentItem() {
         if (p == null) {
             return null;
@@ -303,7 +304,6 @@ class ListPointer {
     }
 }
 ```
-
 
 Instead of `init()`, the constructor here has `ListPointer(Node)`
 used. A client that will use the iterator does not need more
@@ -341,17 +341,14 @@ the entire instance can be run through the administration with e.g.:
 
 ```java
 Stack v;
-
 ...
-
 for (java.util.Enumeration e = v.elements(); e.hasMoreElements(); ) {
     System.out.println(e.nextElement());
 }
 ```
 
-The only thing that needs to be replaced is elements() and here the name is also changed
-in the iterator. In addition, the methods that implement the interface must
-be public.
+The only thing that needs to be replaced is `elements()` and here the name is also changed
+in the iterator. In addition, the methods that implement the interface must be public.
 
 ```java
 import java.util.Enumeration;
@@ -362,12 +359,9 @@ class Node {
 }
 
 class Stack {
-
     ...
-
     Enumerator elements() {
         return new Enumerator(top);
-
     }
 }
 
@@ -410,13 +404,12 @@ assuming they are nested interfaces (even without static).
 Importantly, the syntax for references, calls and the creation of
 objects through super, this and new look different than at top level
 the cases and the other inner classes. To take an example of an interior
-member class is instantiated in the surrounding class through `this.new Enumerator()`:
+member class is instantiated in the surrounding class through
+`this.new Enumerator()`:
 
 ```java
 class Node {
-
     ...
-
     java.util.Enumeration elements() {
         return this.new Enumerator();
     }
@@ -427,7 +420,6 @@ class Node {
         public boolean hasMoreElements() {
             return i < Node.this.length();
         }
-
         public Object nextElement() {
             if (i < Node.this.length()) {
                 return Node.this.index(i++);
@@ -440,111 +432,69 @@ class Node {
 
 Even the references from the inner class Enumerator become of one
 new kind. Methods in the surrounding class may be called via
-the instance reference e.g. Node.this.length(). The entire class Node and inner
+the instance reference e.g. `Node.this.length()`. The entire class Node and inner
 the Enumerator member class can be seen in Listing 3.4. Here have at the moment also
 the recursion is used again.
 
 *List 3.4*
 
-`import java.util.Enumeration;`
+```java
+import java.util.Enumeration;
+import java.util.NoSuchElementException;
 
-`import java.util.NoSuchElementException;`
+class Node {
+    Object h;
+    Node t;
 
-`class Node ``{`
+    Node(Object _h, Node _t) {
+        h = _h;
+        t = _t;
+    }
+    boolean isEmpty() {
+        return (h == null) && (t == null);
+    }
+    int length() {
+        if (isEmpty()) {
+            return 0;
+        } else if (t == null) {
+            return 1;
+        } else {
+            return 1 + t.length();
+        }
+    }
+    Object index(int i) {
+        if (i < 0) {
+            return null;
+        } else if (i == 0) {
+            return h;
+        } else if (t != null) {
+            return t.index(i - 1);
+        } else {
+            return null;
+        }
+    }
+    Enumeration elements() {
+        return this.new Enumerator();
+    }
 
-`  Object h;`
+    class Enumerator implements Enumeration {
+        int i = 0;
 
-`  Node t;`
+        public boolean hasMoreElements() {
+            return i < Node.this.length();
+        }
 
-`  Node(Object _h, Node _t) ``{`
-
-`    h = _h;`
-
-`    t = _t;`
-
-`  ``}`
-
-`  boolean isEmpty() ``{`
-
-`    return (h == null) && (t == null);`
-
-`  ``}`
-
-`  int length() ``{`
-
-`    if (isEmpty()) ``{`
-
-`      return 0;`
-
-`    ``}`` else if (t == null) ``{`
-
-`      return 1;`
-
-`    ``}`` else ``{`
-
-`      return 1 + t.length();`
-
-`    ``}`
-
-`  ``}`
-
-`  Object index(int i) ``{`
-
-`    if (i < 0) ``{`
-
-`      return null;`
-
-`    ``}`` else if (i == 0) ``{`
-
-`      return h;`
-
-`    ``}`` else if (t != null) ``{`
-
-`      return t.index(i - 1);`
-
-`    ``}`` else ``{`
-
-`      return null;`
-
-`    ``}`
-
-`  ``}`
-
-`  Enumeration elements() ``{`
-
-`    return this.new Enumerator();`
-
-`  ``}`
-
-`  class Enumerator implements Enumeration ``{`
-
-`    int i = 0;`
-
-`    public boolean hasMoreElements() ``{`
-
-`      return i < Node.this.length();`
-
-`    ``}`
-
-`    public Object nextElement() ``{`
-
-`      synchronized (Node.this) ``{`
-
-`        if (i < Node.this.length()) ``{`
-
-`          return Node.this.index(i++);`
-
-`        ``}`
-
-`      ``}`
-
-`      throw new NoSuchElementException("Node");`
-
-`    ``}`
-
-`  ``}`
-
-`}`
+        public Object nextElement() {
+            synchronized (Node.this) {
+                if (i < Node.this.length()) {
+                    return Node.this.index(i++);
+                }
+            }
+            throw new NoSuchElementException("Node");
+        }
+    }
+}
+```
 
 Sometimes a constructor of an inner class can be called outside of it
 surrounding class, from a subclass to the surrounding class. Assume
