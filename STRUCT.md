@@ -243,45 +243,32 @@ which uses both the Node and Iterator classes from Listing 3.2.
 
 *List 3.3*
 
-`class Stack ``{`
+```java
+class Stack {
+    Node top = null;
 
-`  Node top = null;`
+    boolean isEmpty() {
+        return top == null;
+    }
 
-`  boolean isEmpty() ``{`
+    void push(Object x) {
+        top = new Node(x, top);
+    }
 
-`    return top == null;`
+    Object pop() {
+        if (!isEmpty()) {
+            Object x = top.h;
+            top = top.t;
+            return x;
+        }
+        throw new java.util.NoSuchElementException("Stack underflow");
+    }
 
-`  ``}`
-
-`  void push(Object x) ``{`
-
-`    top = new Node(x, top);`
-
-`  ``}`
-
-`  Object pop() ``{`
-
-`    if (!isEmpty()) ``{`
-
-`      Object x = top.h;`
-
-`      top = top.t;`
-
-`      return x;`
-
-`    ``}`
-
-`    throw new java.util.NoSuchElementException("Stack underflow");`
-
-`  ``}`
-
-`  Iterator elements() ``{`
-
-`    return new Iterator(top);`
-
-`  ``}`
-
-`}`
+    Iterator elements() {
+        return new Iterator(top);
+    }
+}
+```
 
 An iterator is a general structure (design pattern) that can be used
 for many different purposes. It is common to consider the data (or
@@ -289,15 +276,16 @@ other objects) are administered by an iterator which in turn is managed by a
 client. A variant of iterator can be constructed through interfaces where it
 abstracted pointer can be used:
 
-erect `init()` initialization, pointer at root
+* erect `init()` initialization, pointer at root
 
- `currentItem()` currently selected item
+* `currentItem()` currently selected item
 
- `atEnd()` true if the pointer is at the end
+* `atEnd()` true if the pointer is at the end
 
- `nextItem()` jump to specifying the next element
+* `nextItem()` jump to specifying the next element
 
-**Quote - föList 3.4**
+
+*List 3.4*
 
 `class List ``{`
 
