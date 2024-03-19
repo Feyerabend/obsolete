@@ -452,7 +452,7 @@ be public.
 
 `}`
 
-1. ***Membership Classes***
+## Membership Classes
 
 In addition to inner classes such as local classes, anonymous classes or
 nested classes, there are the inner member classes. The local and anonymous
@@ -516,7 +516,7 @@ the instance reference e.g. Node.this.length(). The entire class Node and inner
 the Enumerator member class can be seen in Listing 3.4. Here have at the moment also
 the recursion is used again.
 
-**Quote - föList 3.4**
+*List 3.4*
 
 `import java.util.Enumeration;`
 
@@ -674,7 +674,7 @@ the proximity of surrounding classes but also the range of access
 (accessibility) and visibility (visibility) of methods, fields and classes
 from and by inner classes.
 
-BröAn important modifier is static and another final. Everything that
+An important modifier is static and another final. Everything that
 declared static cannot be included in the inner classes but is added
 only the top level, where a nested class or interface is also a member.
 To reach the environment from a local class, environment declarations are required
@@ -691,7 +691,8 @@ to the method through this.length(). But in the case where a method is used with
 scoped in a member class within an inherited superclass Node, it is referenced
 to instead through Node.this.length().
 
-1. ***Tr**ä**d***
+
+## Trees
 
 As shown, it was possible to implement both lists and stacks via
 node concept. Of course, both of these can be further refined by
@@ -723,23 +724,23 @@ enumeration. Here there is use for a significantly more extended lexicon
 (dictionary). An example of what a lexicon is for a very simple tree
 could implement:
 
-erect search(T, k) A query given a tree and a key k,
+* `search(T, k)` A query given a tree and a key k,
 returns the node key points to or null if no value
 exists.
 
- insert(x) A modification operation, given the tree place node x in
+* `insert(x)` A modification operation, given the tree place node x in
 the tree.
 
- delete(x) A modification operation, given the tree delete the node x
+* `delete(x)` A modification operation, given the tree delete the node x
 out of the tree.
 
- minimum(T) A query that, given a branch T, returns the node with it
+* `minimum(T)` A query that, given a branch T, returns the node with it
 smallest key.
 
- maximum(T) A query that, given a branch T, returns the node with it
+* `maximum(T)` A query that, given a branch T, returns the node with it
 biggest key.
 
- successor(x) A query that, given a node and tree, returns
+* `successor(x)` A query that, given a node and tree, returns
 next larger node according to its key or null if the node already is
 largest.
 
@@ -1081,7 +1082,8 @@ largest.
 
 `}`
 
-1. ***Bes**ö**kare***
+
+## Visitor
 
 `abstract class Node ``{`
 
@@ -1247,7 +1249,7 @@ largest.
 
 `}`
 
-1. ***Protocol***
+## Protocols
 
 `abstract class Node ``{`
 
@@ -1493,7 +1495,7 @@ largest.
 
 `}`
 
-*Factories* (factory)
+## Factories (factory)
 
 [separate abstract factory from method factory]
 
