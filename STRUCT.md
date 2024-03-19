@@ -8,7 +8,7 @@ intention is to narrow down the possibilities in object structures
 to some *normative* program structures. It is also in the mastered
 limitation that the reuse can begin.
 
-1. ***Lists***
+## Lists
 
 Lists of various kinds are a commonly occurring structure such as e.g.
 programmers, system engineers or programming language designers work
@@ -24,12 +24,12 @@ A list is, in short, a structure where the data is in a linear fashion
 order (but not necessarily sorted). Lists appear in several
 varieties such as singly linked or doubly linked lists. Of every
 variety, there are several variants, where a single linked or double linked
-list can be straight or circular. The links can of course be in
-than more dimensions.
+list can be straight or circular. The links can of course have
+more dimensions.
 
 The intuitive starting point for lists is an array of atoms.
-The atoms here are a, b, c, d, etc. Lists consist of a collection of atoms or
-of other lists. Of a set of atoms a, b, c, d, all three are the following
+The atoms here are *a*, *b*, *c*, *d*, etc. Lists consist of a collection of atoms or
+of other lists. Of a set of atoms *a*, *b*, *c*, *d*, all three are the following
 composition lists:
 
 ```
@@ -38,8 +38,8 @@ composition lists:
 [b [c [[d [d []]][a [[b []][]]]]]]]
 ```
 
-However, the atoms a, b, c or d are not lists. To the lists belong
-also the empty list [] which has no atom (any element) in it
+However, the atoms *a*, *b*, *c* or *d* are not lists. To the lists belong
+also the empty list *[]* which has no atom (any element) in it
 one. A list can consist of other lists. Although the number of atoms which
 included in a list can be infinite, the list (here) must be finite.
 
@@ -71,7 +71,7 @@ complex pointer arithmetic is avoided, and thus also possible and common
 wrong. In the following, Java's reference structures are referred to when "pointers"
 mentioned (but with which there are certain abstract similarities).
 
-*Lists in practice*
+### Lists in practice
 
 Lists can be advantageously based on the node concept. A node is intuitive
 a hub of information. The node contains chained pointers to others
@@ -81,8 +81,7 @@ implemented as end pointer.
 
 Bridge Constructed nodes as objects can reserved fields in the objects
 be links to other nodes. The objects can also carry others with them
-object (satellite) placed in the list. A node can e.g.
-constructed:
+object (satellite) placed in the list. A node can e.g. constructed:
 
 ```java
 class Node {
@@ -92,13 +91,12 @@ class Node {
     Node(Object _o, Node _n) {
         o = _o;
         n = _n;
-
     }
 }
 ```
 
-The nodes are created as new objects with new. Each node has an object and
-a link to the next node. Last node that does not point further is null:
+The nodes are created as new objects with `new`. Each node has an object and
+a link to the next node. Last node that does not point further is `null`:
 
 ```java
 Node root =
@@ -112,8 +110,7 @@ Node root =
 
 Then object orientation allows manipulations with data to be set
 together with their data into objects, the nodes can be added with some
-algorithms that allow certain manipulations, as shown in list
-3.1.
+algorithms that allow certain manipulations, as shown in list 3.1.
 
 *List 3.1*
 
@@ -126,11 +123,9 @@ class Node {
         h = _h;
         t = _t;
     }
-
     boolean isEmpty() {
         return (h == null) && (t == null);
     }
-
     int length() {
         if (isEmpty()) {
             return 0;
@@ -140,7 +135,6 @@ class Node {
             return 1 + t.length();
         }
     }
-
     Object index(int i) {
         if (i < 0) {
             return null;
@@ -152,7 +146,6 @@ class Node {
             return null;
         }
     }
-
     boolean includes(Object o) {
         if (h.equals(o)) {
             return true;
@@ -166,13 +159,13 @@ class Node {
 }
 ```
 
-Three methods in Listing 3.1 are recursive. Because the nodes are clustered
+Three methods in List 3.1 are recursive. Because the nodes are clustered
 with fields that point to other nodes, the methods can use them
 to perform their manipulations. Based on the own node: the length of
 the chain, return the object the node is associated with or look for
 if a particular item is in the chain.
 
-*Iteratorer*
+### Iterators
 
 A problem with the list in 3.1 is that all operations become fast
 depending on letting the list manage the routines itself. A relative
@@ -200,11 +193,9 @@ class List {
     boolean isEmpty() {
         return root == null;
     }
-
     void add(Object v) {
         root = new Node(v, root);
     }
-
     Iterator elements() {
         return new Iterator(root);
     }
@@ -216,11 +207,9 @@ class Iterator {
     Iterator(Node _i) {
         i = _i;
     }
-
     boolean hasMoreElements() {
         return i != null;
     }
-
     Object nextElement() {
         if (i != null) {
             Node x = i;
@@ -237,7 +226,7 @@ the routines that are supposed to use the list. An advantage and disadvantage is
 it is best suited for routines (methods) that do not depend on themselves
 the structure of the list, but cope with (only) enumerations.
 
-BröAnother example of administration of data that can do without
+Another example of administration of data that can do without
 the structure is an implementation of a stack. Listing 3.3 shows a class
 which uses both the Node and Iterator classes from Listing 3.2.
 
@@ -250,11 +239,9 @@ class Stack {
     boolean isEmpty() {
         return top == null;
     }
-
     void push(Object x) {
         top = new Node(x, top);
     }
-
     Object pop() {
         if (!isEmpty()) {
             Object x = top.h;
@@ -263,7 +250,6 @@ class Stack {
         }
         throw new java.util.NoSuchElementException("Stack underflow");
     }
-
     Iterator elements() {
         return new Iterator(top);
     }
@@ -276,181 +262,138 @@ other objects) are administered by an iterator which in turn is managed by a
 client. A variant of iterator can be constructed through interfaces where it
 abstracted pointer can be used:
 
-* erect `init()` initialization, pointer at root
-
+* `init()` initialization, pointer at root
 * `currentItem()` currently selected item
-
 * `atEnd()` true if the pointer is at the end
-
 * `nextItem()` jump to specifying the next element
 
 
 *List 3.4*
 
-`class List ``{`
+```java
+class List {
+    ...
 
-`...`
+    ListPointer elements() {
+        return new ListPointer(root);
+    }
+}
 
-`  ListPointer elements() ``{`
+class ListPointer {
+    Node p;
 
-`    return new ListPointer(root);`
+    ListPointer(Node _p) {
+        p = _p;
+    }
+    boolean atEnd() {
+        return p == null;
+    }
+    void nextItem() {
+        if (p != null) {
+            p = p.t;
+        }
+    }
 
-`  ``}`
+    Object currentItem() {
+        if (p == null) {
+            return null;
+        } else {
+            return p.h;
+        }
+    }
+}
+```
 
-`}`
 
-`class ListPointer ``{`
-
-`  Node p;`
-
-`  ListPointer(Node _p) ``{`
-
-`    p = _p;`
-
-`  ``}`
-
-`  boolean atEnd() ``{`
-
-`    return p == null;`
-
-`  ``}`
-
-`  void nextItem() ``{`
-
-`    if (p != null) ``{`
-
-`      p = p.t;`
-
-`    ``}`
-
-`  ``}`
-
-`  Object currentItem() ``{`
-
-`    if (p == null) ``{`
-
-`      return null;`
-
-`    ``}`` else ``{`
-
-`      return p.h;`
-
-`    ``}`
-
-`  ``}`
-
-`}`
-
-Instead of init(), the constructor here has ListPointer(Node)
+Instead of `init()`, the constructor here has `ListPointer(Node)`
 used. A client that will use the iterator does not need more
-than the interface defined to enumerate the contents of
-the list.
+than the interface defined to enumerate the contents of the list.
 
-`List list = new List();`
+```java
+    List list = new List();
+    list.add(new String("Athena"));
+    list.add(new Integer(7));
+    list.add(new Double(92.2));
+    ...
 
-`list.add(new String("Athena"));`
+    ListPointer j = list.elements();
 
-`list.add(new Integer(7));`
-
-`list.add(new Double(92.2));`
-
-`…`
-
-`ListPointer j = list.elements();`
-
-``while (!j.atEnd()) ``{`
-
-`  System.out.println(j.currentItem());`
-
-`  j.nextItem();`
-
-`}`
+    while (!j.atEnd()) {
+        System.out.println(j.currentItem());
+        j.nextItem();
+    }
+```
 
 If practiced, reuse can Java's already established interfaces
-Enumeration is applied in the context which basically looks like:
+`Enumeration` is applied in the context which basically looks like:
 
-`package java.util;`
+```java
+package java.util;
 
-`public interface Enumeration ``{`
-
-`  boolean hasMoreElements();`
-
-`  Object nextElement();`
-
-`}`
+public interface Enumeration {
+    boolean hasMoreElements();
+    Object nextElement();
+}
+```
 
 At each enumeration of list or stack or other data structure,
 the entire instance can be run through the administration with e.g.:
 
-`Stack v;`
+```java
+Stack v;
 
-`…`
+...
 
-`for (java.util.Enumeration e = v.elements(); e.hasMoreElements(); ) ``{`
-
-`  System.out.println(e.nextElement());`
-
-`}`
+for (java.util.Enumeration e = v.elements(); e.hasMoreElements(); ) {
+    System.out.println(e.nextElement());
+}
+```
 
 The only thing that needs to be replaced is elements() and here the name is also changed
 in the iterator. In addition, the methods that implement the interface must
 be public.
 
-`import java.util.Enumeration;`
+```java
+import java.util.Enumeration;
+import java.util.NoSuchElementException;
 
-`import java.util.NoSuchElementException;`
+class Node {
 
-`class Node ``{`
+    ...
 
-`	``…`
+}
 
-`}`
+class Stack {
 
-`class Stack ``{`
+...
 
-`…`
+    Enumerator elements() {
+        return new Enumerator(top);
 
-`  Enumerator elements() ``{`
+    }
+}
 
-`    return new Enumerator(top);`
+class Enumerator implements Enumeration {
+    Node i;
 
-`  ``}`
+    Enumerator(Node _i) {
+        i = _i;
+    }
 
-`}`
+    public boolean hasMoreElements() {
+        return i != null;
+    }
 
-`class Enumerator implements Enumeration ``{`
-
-`  Node i;`
-
-`  Enumerator(Node _i) ``{`
-
-`    i = _i;`
-
-`  ``}`
-
-`  public boolean hasMoreElements() ``{`
-
-`    return i != null;`
-
-`  ``}`
-
-`  public Object nextElement() ``{`
-
-`    if (i != null) ``{`
-
-`      Node x = i;`
-
-`      i = i.t;`
-
-`      return x.h;`
-
-`    ``}`
-
-`    throw new NoSuchElementException();`
-
-`  ``}`
-
-`}`
+    public Object nextElement() {
+        if (i != null) {
+            Node x = i;
+            i = i.t;
+            return x.h;
+        }
+        throw new NoSuchElementException();
+    }
+}
+```
 
 ## Membership Classes
 
@@ -468,47 +411,36 @@ interfaces that act like the member classes. If interfaces are defined
 within a class in the same way as member or nested classes,
 assuming they are nested interfaces (even without static).
 
-BröImportantly, the syntax for references, calls and the creation of
+Importantly, the syntax for references, calls and the creation of
 objects through super, this and new look different than at top level
 the cases and the other inner classes. To take an example of an interior
-member class is instantiated in the surrounding class through this.new
-Enumerator():
+member class is instantiated in the surrounding class through `this.new Enumerator()`:
 
-`class Node ``{`
+```java
+class Node {
 
-`…`
+    ...
 
-`  java.util.Enumeration elements() ``{`
+    java.util.Enumeration elements() {
+        return this.new Enumerator();
+    }
 
-`    return this.new Enumerator();`
+    class Enumerator implements java.util.Enumeration {
+        int i = 0;
 
-`  ``}`
+        public boolean hasMoreElements() {
+            return i < Node.this.length();
+        }
 
-`  class Enumerator implements java.util.Enumeration ``{`
-
-`    int i = 0;`
-
-`    public boolean hasMoreElements() ``{`
-
-`      return i < Node.this.length();`
-
-`    ``}`
-
-`    public Object nextElement() ``{`
-
-`      if (i < Node.this.length()) ``{`
-
-`        return Node.this.index(i++);`
-
-`      ``}`
-
-`      throw new java.util.NoSuchElementException("Node");`
-
-`    ``}`
-
-`  ``}`
-
-`}`
+        public Object nextElement() {
+            if (i < Node.this.length()) {
+                return Node.this.index(i++);
+            }
+            throw new java.util.NoSuchElementException("Node");
+        }
+    }
+}
+```
 
 Even the references from the inner class Enumerator become of one
 new kind. Methods in the surrounding class may be called via
