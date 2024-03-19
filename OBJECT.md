@@ -1,8 +1,8 @@
-**2. Object structures**
+# 2. Object structures**
 
 This chapter describes basic (but not all) object structures found in Java. These are the linguistic starting points for designing object-oriented programs in Java. The object structures also show those_possibility_ available to write programs in Java.
 
-_**Imperative programming**_
+## Imperative programming
 
 Java is what is called an object-oriented language. This means that the structure of programs can be built with tools from theories about what constitutes object orientation. The theories are based on concepts about objects, classes, methods, inheritance, instances, message handling, etc. But the language also allows within itself an older type of programming that will be called hereafter_imperative programming_. The imperative programming is still an essential part of how the programs are finally run (executed). It is within the object-oriented shell that the imperative programming in Java resides.
 
@@ -30,7 +30,7 @@ In order to e.g. convert degrees of heat specified in Fahrenheit to Celsius ther
 
 The basic structure here is first declarations of which variables are used, initialization of the variables, and finally an iteration (loop) that prints a smaller list. The printed list itself will consist of values ​​in Fahrenheit from 0 to 300 at 20 degree intervals, and its equivalent in Celsius.
 
-_**Object orientation**_
+## Object orientation
 
 Object-orientation faces a completely different approach to programming. Although in practice imperative programming is most often used within the object-oriented shell of Java, it is not essential to the object structure itself.
 
@@ -58,7 +58,7 @@ Some object-oriented concepts related to Java
 *   _Polymorphism_, Ability to substitute objects for other objects with matching interfaces at runtime.
     
 
-_**Classes and methods**_
+## Classes and methods
 
 The object-orientation in Java negates the need for imperative order for its own structure. A class is shown in Listing 2.1.
 
@@ -71,7 +71,6 @@ class StoreClass {
     void setValue(int value) {
         x = value;
     }
-
     int getValue() {
         return x;
     }
@@ -142,7 +141,7 @@ Both the class in Listing 2.1 and the class in Listing 2.2 show encapsulation ex
 
 Other types of classes are e.g. data producers (data sources), data consumers (data sinks), observers (observer) or display classes (view). A consumer class can e.g. receive data from a text and look up certain matching words. A producer class can generate numbers that represent pixels for an image. Classes that handle drawing things on a screen can often be separated from the model that represents the things. A display class can handle drawing and updating perspective houses to a screen, allowing walkthroughs of the virtual building. While the model of the houses does not contain drawing data, the model may contain dimensions or connections between different objects such as walls and roofs. The model can be refined and standardize architectural drawings. This allows other display classes to reuse the model of buildings for other purposes.
 
-_**Object instances and method calls**_
+## Object instances and method calls
 
 Once the class is defined with methods and fields (above instance variables), it can be instantiated. During instantiation, objects are created. The objects are created using the new operator:
 
@@ -251,7 +250,7 @@ The actual ship collection is in what is called a low-priority thread and only h
 System.gc();
 ```
 
-_**Constructors and Overrides**_
+## Constructors and Overrides
 
 Constructors can be seen as a variant of methods that are called when objects are created. Methods are called after the objects are constructed. In the constructor, you usually put in what the objects are to be initialized with. Constructor calls occur automatically when an object is created.
 
@@ -316,8 +315,8 @@ class Name {
 
     Name() { }
 
-    Name(String \_v) {
-        v = \_v;
+    Name(String _v) {
+        v = _v;
     }
 
     boolean equals(String s) {
@@ -381,7 +380,7 @@ class YetAMemory {
 }
 ```
 
-_**of the subclass**_
+## .. of the subclass
 
 One of the most useful phenomena in object orientation is inheritance. Inheritance involves, among other things, subclassing and the ability to build hierarchies of classes. By taking a class and extending it to a new class, the properties from the old one can still be maintained. The new class is a subclass (hence subclassing) of the old, where the old is the superclass. Assume that a class Name is extended to ExtendedName, Listing 2.4.
 
@@ -417,10 +416,10 @@ class Name {
 class ExtendedName extends Name {
     String pr, po;
 
-    ExtendedName(String \_pr, String \_v, String \_po) {
-        super(\_v);
-        pr = \_pr;
-        po = \_po;
+    ExtendedName(String _pr, String _v, String _po) {
+        super(_v);
+        pr = _pr;
+        po = _po;
     }
 
     String getPre() {
@@ -470,17 +469,17 @@ When instantiating ExtendedName and calling print(), the inherited method will b
     en.print();
 ```
 
-_Super constructors and super variables_
+### Super constructors and super variables
 
-The constructor in ExtendedName takes advantage of being under (sub)class Name, by calling the constructor that receives a string in Name, super(\_v). The value of v is directly accessible from ExtendedName. The super.v in extendValue() in ExtendedName is therefore redundant here, since there is only one v in the context. But both super and this are sometimes used, for the sake of clarity, to explicitly mark which instances or superclasses are being referred to, except that they are sometimes necessary.
+The constructor in `ExtendedName` takes advantage of being under (sub)class `Name`, by calling the constructor that receives a string in Name, `super(_v)`. The value of v is directly accessible from `ExtendedName`. The `super.v` in `extendValue()` in `ExtendedName` is therefore redundant here, since there is only one v in the context. But both super and this are sometimes used, for the sake of clarity, to explicitly mark which instances or superclasses are being referred to, except that they are sometimes necessary.
 
-The extendName() and extendValue() methods illustrate different ways to return values. In the case of extendName() only the combination will be returned. In the case of extendValue(), the combination will not only be returned but also the value v will be set to this combination (concatenation, concatenation, juxtapose).
+The `extendName()` and `extendValue()` methods illustrate different ways to return values. In the case of `extendName()` only the combination will be returned. In the case of `extendValue()`, the combination will not only be returned but also the value v will be set to this combination (concatenation, concatenation, juxtapose).
 
-_**Method Override**_
+## Method Override
 
-Methods not only need to be inherited, they can_be replaced_ of other methods with the same name. Then a method is written that overrides another method with the same name (strictly speaking the same signature) in the superclass. That is when a method in a derived class (subclass) has the same signature as a method in the parent class, the method is said to override the parent method. When a method traverses Java's tree structure of classes that extend each other, it searches up the hierarchy from subclasses to superclasses until it reaches the top class Object. If the search does not find a matching method, an error is returned.
+Methods not only need to be inherited, they can __be replaced__ of other methods with the same name. Then a method is written that overrides another method with the same name (strictly speaking the same signature) in the superclass. That is when a method in a derived class (subclass) has the same signature as a method in the parent class, the method is said to override the parent method. When a method traverses Java's tree structure of classes that extend each other, it searches up the hierarchy from subclasses to superclasses until it reaches the top class Object. If the search does not find a matching method, an error is returned.
 
-The Name and ExtendedName classes can be supplemented with the toString() methods:
+The `Name` and `ExtendedName` classes can be supplemented with the `toString()` methods:
 
 ```java
 class Name {
@@ -499,7 +498,7 @@ class ExtendedName extends Name {
 }
 ```
 
-_Super methods and scope_
+### Super methods and scope
 
 If the previous method toString() in ExtendedName rather for replacement method, a refinement is written:
 
@@ -526,7 +525,7 @@ Some concepts related to calls and references
 *   return _value_, return the following value
     
 
-_**Abstract classes and methods**_
+## Abstract classes and methods
 
 Java includes the abstract modifier to declare methods or classes as abstract. That a class is abstract means that_smallest_ one method is abstract, while the others may be non-abstract. Abstract methods are used e.g. as behavior is not implemented within the class, but within the class's extension. Assuming there is a class with some methods and variables, as well as a declared abstract method last:
 
@@ -567,8 +566,8 @@ In order for Java to be able to use the class, Pen can be extended to DrawablePe
 class DrawablePen extends Pen {
     java.awt.Graphics g;
 
-    DrawablePen(java.awt.Graphics \_g) {
-        g = \_g;
+    DrawablePen(java.awt.Graphics _g) {
+        g = _g;
     }
 
     void drawFromTo(int x, int y, int a, int b) {
@@ -589,7 +588,7 @@ class DrawablePen extends Pen {
 
 Methods with the modifier or the access (access) static or private cannot be declared abstract. Neither can constructors be declared abstract. Commonly, a conventional method called init() replaces the constructor in an abstract class.
 
-_**Interface**_
+## Interface
 
 A language part in Java that is close to abstract classes and methods is interface. An interface is much like a collection of abstract methods. Interfaces can be declared abstract despite being redundant:
 
@@ -645,7 +644,8 @@ class Mailer
 
 The classes Printer and Mailer must contain declarations of the methods that the interface promises (however, of course, the implementations can be further delegated). The methods do not have to perform anything, but can of course be empty. The classes certainly do not extend other classes and could e.g. have extended an abstract Transferable instead. But Mailer could also extend a more general SMTP class or Printer a more general Printer class. This is why interfaces exist. Although the names (signatures) of the methods implemented are identical, similar behavior is expected. Nevertheless, completely different tasks will be performed by each class. The calling class therefore does not need to interfere with the particular implementation within the methods.
 
-Multiple interfaces
+
+### Multiple interfaces
 
 Interfaces can form their own subtype hierarchy where interfaces can extend other interfaces:
 
@@ -666,13 +666,15 @@ interface Access extends SetAccess, GetAccess {
 
 Thus, a class can e.g. implement parts of a particular type and not the entire stipulated type. In this case, e.g. the access method set() is only implemented in a class without get() being needed or vice versa.
 
-_**Classes "Object"**_
+## Classes "Object"
 
 At the top of the class hierarchy is the Object class. Only one parent (superclass) exists for each class except Object, but each class can have more descendants (subclasses). Therefore, Object is the ultimate superclass, or what is called the root class, from which all other classes inherit their properties. Most of the time, only some of the methods in Object are used, while others are overridden.
 
 Previous definition of toString() is example of method being overridden. The purpose of this is to form a string representation of an object. For the most part, therefore, the toString() method is overridden in many of Java's standard classes. It is the one that will be called if any object's string representation is to be printed within e.g. System.out.println().
 
 Other methods are equals() in Object which compares whether two objects contain the same values. If equals() is overridden, all the objects the class refers to should be (recursively) compared. (Another method is e.g. clone() which can be overridden if the class implements the Clonable interface, which copies the objects. Again, the class should recursively copy all the objects referenced in the class.)
+
+SORRY, HERE IT ENDS
 
 _**(Reflection & Class literals) -- not finished**_
 
